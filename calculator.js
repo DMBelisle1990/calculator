@@ -18,6 +18,11 @@ var screen = [];
 var opMode = true;
 
 $(function() {
+
+	$("#clear").click(function() {
+ 		screen.length = 0;
+ 		console.log(screen);
+ 	});
     
 	$(".digit p").click(function() {
 		if(!opMode) {
