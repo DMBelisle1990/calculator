@@ -8,9 +8,19 @@
 
 #screen {
 	height: 60px;
-	width:278px;
+	width:258px;
+	padding: 0 10px;
 	border: 1px solid black;
 	margin:5px;
+	line-height: 60px;
+	display: table;
+}
+
+#screen p {
+	text-align: right;
+	display: table-cell;
+	overflow: auto;
+	max-width: 258px;
 }
 
 .btn {
@@ -33,15 +43,9 @@
 }
 
 
-.digit {
+.digit, .op, #equals {
 	cursor: pointer;
 }
-
-
-.op {
-	cursor: pointer;
-}
-
 
 .clear {
 	clear: left;

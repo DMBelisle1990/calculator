@@ -1,36 +1,58 @@
-var add = function(num1, num2) {
-	return num1 + num2;
+/*
+	TODO
+	
+		-Fix input when 0 is entered first
+		-change input mode after = is selected
+		-add decimal button
+
+
+*/
+
+
+
+var updateScreen = function() {
+	$("#screen p").text(screen.join(" "));
 }
 
-var subtract = function(num1, num2) {
-	return num1 - num2;
-}
+var calculate = function() {
+	for(var i = 0; i < screen.length; i++) {
+		if(screen[i] == '*' || screen[i] == '/') {
+			screen[i] = screen[i] == '*' ? screen[i-1] * screen[i+1] : screen[i-1] / screen[i+1];
+			screen.splice(i-1, 1);
+			//splice at i since the previous splice lowers the arrays length
+			screen.splice(i, 1);
+			i--;
+		} 
+	}console.log(screen);
 
-var divide = function(numerator, denominator) {
-	return numerator/denominator;
-}
-
-var multiply = function(num1, num2) {
-	return num1 * num2;
+	for(var i = 0; i < screen.length; i++) {
+		if(screen[i] == '+' || screen[i] == '-') {
+			screen[i] = screen[i] == '+' ? 1*screen[i-1] + 1*screen[i+1] : 1*screen[i-1] - 1*screen[i+1];
+			screen.splice(i-1, 1);
+			screen.splice(i, 1);
+			i--;
+		}
+	} console.log(screen);
 }
 
 var screen = [];
+var text   = "";
 var opMode = true;
 
 $(function() {
 
 	$("#clear").click(function() {
  		screen.length = 0;
- 		console.log(screen);
+ 		$("#screen p").html("");
  	});
     
 	$(".digit p").click(function() {
 		if(!opMode) {
 			screen[screen.length-1] += this.innerHTML;
-			console.log(screen);
+			updateScreen();
 		} else {
 			screen.push(this.innerHTML);
-			console.log(screen);
+			updateScreen();
 			opMode = false;
 		}
 	});
@@ -38,9 +60,14 @@ $(function() {
 	$(".op p").click(function() {
 		if(!opMode) {
 			screen.push(this.innerHTML);
+			updateScreen();
 			opMode = true;
-			console.log(screen);
 		}
+ 	});
+
+ 	$("#equals").click(function() {
+ 		calculate();
+ 		updateScreen();
  	});
 
 });
